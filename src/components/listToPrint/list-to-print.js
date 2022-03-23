@@ -17,7 +17,7 @@ export const ListToPrint = React.forwardRef((props, ref) => {
   const [items, setItems] = useState([]);
 
   const [inputValue, setInputValue] = useState("");
-  // const [totalItems, setTotalItems] = useState();
+  const [categoryValue, setCategoryValue] = useState("");
 
   //ADD item to the list
   const addItem = () => {
@@ -26,13 +26,14 @@ export const ListToPrint = React.forwardRef((props, ref) => {
       id: uuidv4(),
       quantity: 1,
       isSelected: false,
+      category: categoryValue,
     };
 
     const newItems = [...items, newItem];
 
     setItems(newItems);
     setInputValue("");
-    // calculateTotal();
+    setCategoryValue("");
   };
 
   //REMOVE item from list
@@ -40,7 +41,6 @@ export const ListToPrint = React.forwardRef((props, ref) => {
     const newItems = items.filter((item) => item.itemName !== itemName);
 
     setItems(newItems);
-    // calculateTotal();
   };
 
   //INCREASE item count
@@ -72,18 +72,27 @@ export const ListToPrint = React.forwardRef((props, ref) => {
               <Form.Label>Add an Item to Your List!</Form.Label>
               <Row>
                 <Col>
-                  <Form.Control
-                    className="add-item-input"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                  />
-                  <Button
-                    variant="success"
-                    className="add-button"
-                    onClick={() => addItem()}
-                  >
-                    <BsFillPlusCircleFill />
-                  </Button>
+                  <Form>
+                    <Form.Control
+                      className="add-item-input"
+                      placeholder="Item"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                    />
+                    <Form.Control
+                      className="add-item-category"
+                      placeholder="Where to find it"
+                      value={categoryValue}
+                      onChange={(e) => setCategoryValue(e.target.value)}
+                    />
+                    <Button
+                      variant="success"
+                      className="add-button"
+                      onClick={() => addItem()}
+                    >
+                      <BsFillPlusCircleFill />
+                    </Button>
+                  </Form>
                 </Col>
               </Row>
             </Form.Group>
@@ -106,6 +115,7 @@ export const ListToPrint = React.forwardRef((props, ref) => {
                   </Button>
                 </Card.Title>
                 <Col>
+                  <Card.Text>{item.category}</Card.Text>
                   <Card.Body className="quantity">
                     <Card.Text>We need: {item.quantity} </Card.Text>
                     <Button onClick={() => increaseAmount(index)}>
