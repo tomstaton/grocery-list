@@ -118,10 +118,16 @@ export const ListToPrint = React.forwardRef((props, ref) => {
                   <Card.Text>{item.category}</Card.Text>
                   <Card.Body className="quantity">
                     <Card.Text>We need: {item.quantity} </Card.Text>
-                    <Button onClick={() => increaseAmount(index)}>
+                    <Button
+                      className="increase"
+                      onClick={() => increaseAmount(index)}
+                    >
                       <BsFillArrowUpCircleFill />
                     </Button>
-                    <Button onClick={() => decreaseAmount(index)}>
+                    <Button
+                      className="decrease"
+                      onClick={() => decreaseAmount(index)}
+                    >
                       <BsFillArrowDownCircleFill />
                     </Button>
                   </Card.Body>
